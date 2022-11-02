@@ -6,6 +6,8 @@ import com.gpn.vkgroupvalidator.dto.UserInfoDto;
 import com.gpn.vkgroupvalidator.service.GroupValidatorService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 public class GroupValidatorController {
     private final GroupValidatorService groupValidatorService;
@@ -15,7 +17,7 @@ public class GroupValidatorController {
     }
 
     @GetMapping("/validate_group")
-    public UserInfoDto checkGroup(@RequestHeader("vk_service_token") String vkServiceToken, @RequestBody UserGroupIdsDto userGroupIdsDto) throws JsonProcessingException {
+    public UserInfoDto checkGroup(@RequestHeader("vk_service_token") String vkServiceToken, @Valid @RequestBody UserGroupIdsDto userGroupIdsDto) throws JsonProcessingException {
         return groupValidatorService.checkGroupForUser(vkServiceToken, userGroupIdsDto);
     }
 

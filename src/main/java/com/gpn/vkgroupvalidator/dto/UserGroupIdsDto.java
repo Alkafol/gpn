@@ -1,16 +1,22 @@
 package com.gpn.vkgroupvalidator.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.boot.autoconfigure.batch.BatchDataSource;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class UserGroupIdsDto {
+    @NotNull(message = "used_id is mandatory parameter")
     @JsonProperty("user_id")
-    private int userId;
-    @JsonProperty("group_id")
-    private int groupId;
+    private Integer userId;
 
-    public int getUserId() {
-        return userId;
-    }
+    @NotNull(message = "group_id is mandatory parameter")
+    @JsonProperty("group_id")
+    private Integer groupId;
+
+    public int getUserId() { return userId; }
 
     public void setUserId(int userId) {
         this.userId = userId;
