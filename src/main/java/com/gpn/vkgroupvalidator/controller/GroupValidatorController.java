@@ -6,10 +6,11 @@ import com.gpn.vkgroupvalidator.dto.UserInfoDto;
 import com.gpn.vkgroupvalidator.service.GroupValidatorService;
 import com.gpn.vkgroupvalidator.tools.vkMethodException;
 import com.gpn.vkgroupvalidator.tools.UserNotFoundException;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
 import javax.validation.Valid;
 
 @RestController
@@ -21,6 +22,7 @@ public class GroupValidatorController {
     }
 
     @GetMapping("/validate_group")
+    @ApiOperation(value = "Check if user in group", notes = "Returns user's info and group membership")
     public UserInfoDto checkGroup(@RequestHeader("vk_service_token") String vkServiceToken, @Valid @RequestBody UserGroupIdsDto userGroupIdsDto){
         try {
             return groupValidatorService.checkGroupForUser(vkServiceToken, userGroupIdsDto);
