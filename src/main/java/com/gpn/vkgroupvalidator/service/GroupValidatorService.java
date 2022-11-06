@@ -12,16 +12,19 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class GroupValidatorService {
-    public GroupValidatorService(){}
+    private RestTemplate restTemplate;
+    private ObjectMapper objectMapper;
+
+    public GroupValidatorService(){
+        restTemplate = new RestTemplate();
+        objectMapper = new ObjectMapper();
+    }
 
     public UserInfoDto checkGroupForUser(String vkServiceToken, UserGroupIdsDto userGroupIdsDto) throws JsonProcessingException, UserNotFoundException, vkMethodException {
         final String url = "https://api.vk.com/method/users.get?user_ids=" + userGroupIdsDto.getUserId() +
                 "&fields=nickname&access_token=" + vkServiceToken + "&v=5.131";
 
-        RestTemplate restTemplate = new RestTemplate();
         String respond = restTemplate.getForObject(url, String.class);
-
-        ObjectMapper objectMapper = new ObjectMapper();
         ObjectNode node = objectMapper.readValue(respond, ObjectNode.class);
         if (node.get("error") != null){
             throw new vkMethodException(node.get("error").get("error_msg").toString());
@@ -39,14 +42,11 @@ public class GroupValidatorService {
         return userInfoDto;
     }
 
-    private boolean isMember(String vkServiceToken, int userId, int groupId) throws JsonProcessingException, vkMethodException {
+    public boolean isMember(String vkServiceToken, int userId, int groupId) throws JsonProcessingException, vkMethodException {
         final String url = "https://api.vk.com/method/groups.isMember?user_id=" + userId +
                 "&group_id=" + groupId + "&access_token=" + vkServiceToken + "&v=5.131";
 
-        RestTemplate restTemplate = new RestTemplate();
         String respond = restTemplate.getForObject(url, String.class);
-
-        ObjectMapper objectMapper = new ObjectMapper();
         ObjectNode node = objectMapper.readValue(respond, ObjectNode.class);
         if (node.get("error") != null){
             throw new vkMethodException(node.get("error").get("error_msg").toString());

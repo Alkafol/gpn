@@ -6,7 +6,6 @@ import com.gpn.vkgroupvalidator.dto.UserInfoDto;
 import com.gpn.vkgroupvalidator.service.GroupValidatorService;
 import com.gpn.vkgroupvalidator.tools.vkMethodException;
 import com.gpn.vkgroupvalidator.tools.UserNotFoundException;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +14,10 @@ import javax.validation.Valid;
 
 @RestController
 public class GroupValidatorController {
-    private final GroupValidatorService groupValidatorService;
+    private GroupValidatorService groupValidatorService;
 
-    public GroupValidatorController(GroupValidatorService groupValidatorService){
-        this.groupValidatorService = groupValidatorService;
+    public GroupValidatorController(){
+        groupValidatorService = new GroupValidatorService();
     }
 
     @GetMapping("/validate_group")
@@ -29,16 +28,15 @@ public class GroupValidatorController {
         }
         catch (UserNotFoundException e){
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "User with given ID wasn't found", e);
+                    HttpStatus.BAD_REQUEST, "User with given ID wasn't found", e);
         }
         catch (vkMethodException e){
             throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, e.getVkMessage(), e);
+                    HttpStatus.FAILED_DEPENDENCY, e.getVkMessage(), e);
         }
         catch (JsonProcessingException e){
             throw new ResponseStatusException(
                     HttpStatus.FAILED_DEPENDENCY, "Unknown error", e);
         }
     }
-
 }
