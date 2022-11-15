@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vkgroupvalidator
+spec:
+  selector:
+    matchLabels:
+      app: vkgroupvalidator
+  template:
+    metadata:
+      labels:
+        app: vkgroupvalidator
+    spec:
+      containers:
+       - name: vkgroupvalidator
+         image: vkgroupvalidator:1.0
+         imagePullPolicy: IfNotPresent
+         ports:
+            -  containerPort: 8080
