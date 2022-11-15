@@ -26,7 +26,6 @@ public class GroupValidatorController {
     @ApiOperation(value = "Check if user in group", notes = "Returns user's info and group membership")
     public UserInfoDto checkGroup(@RequestHeader("vk_service_token") String vkServiceToken, @Valid @RequestBody UserGroupIdsDto userGroupIdsDto){
         try {
-            System.out.println("Cache wasn't generate");
             return groupValidatorService.checkGroupForUser(vkServiceToken, userGroupIdsDto);
         }
         catch (UserNotFoundException e){
