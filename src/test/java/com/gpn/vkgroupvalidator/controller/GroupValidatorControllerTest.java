@@ -24,7 +24,7 @@ public class GroupValidatorControllerTest {
     GroupValidatorService groupValidatorService;
 
     @InjectMocks
-    GroupValidatorController underTest = new GroupValidatorController();
+    GroupValidatorController underTest = new GroupValidatorController(groupValidatorService);
 
     @Test
     void checkGroupTest() throws Exception {

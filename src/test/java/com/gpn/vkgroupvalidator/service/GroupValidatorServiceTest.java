@@ -27,7 +27,7 @@ public class GroupValidatorServiceTest {
     ObjectMapper objectMapper;
 
     @InjectMocks
-    GroupValidatorService underTest = new GroupValidatorService();
+    GroupValidatorService underTest = new GroupValidatorService(restTemplate, objectMapper);
 
     @Test
     void isMemberWithErrorTest() throws Exception{

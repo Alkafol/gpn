@@ -17,8 +17,8 @@ import javax.validation.Valid;
 public class GroupValidatorController {
     private GroupValidatorService groupValidatorService;
 
-    public GroupValidatorController(){
-        groupValidatorService = new GroupValidatorService();
+    public GroupValidatorController(GroupValidatorService groupValidatorService){
+        this.groupValidatorService = groupValidatorService;
     }
 
     @GetMapping("/validate_group")

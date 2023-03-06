@@ -20,7 +20,7 @@ public class CachingConfig {
 
     @CacheEvict(value = "user-group", allEntries = true)
     @Scheduled(fixedRate = 24 * 3600 * 1000) // 24 hours
-    public void emptyHotelsCache() {
+    public void requestsCache() {
         System.out.println("Clear cache");
     }
 }

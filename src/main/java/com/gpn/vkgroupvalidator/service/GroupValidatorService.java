@@ -15,9 +15,9 @@ public class GroupValidatorService {
     private RestTemplate restTemplate;
     private ObjectMapper objectMapper;
 
-    public GroupValidatorService(){
-        restTemplate = new RestTemplate();
-        objectMapper = new ObjectMapper();
+    public GroupValidatorService(RestTemplate restTemplate, ObjectMapper objectMapper){
+        this.restTemplate = restTemplate;
+        this.objectMapper = objectMapper;
     }
 
     public UserInfoDto checkGroupForUser(String vkServiceToken, UserGroupIdsDto userGroupIdsDto) throws JsonProcessingException, UserNotFoundException, vkMethodException {
